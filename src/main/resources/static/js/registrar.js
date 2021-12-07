@@ -7,9 +7,8 @@ async function Registrar() {
   datos.dni=document.getElementById('txtDni').value;
   datos.nombre=document.getElementById('txtNombre').value;
   datos.apellido=document.getElementById('txtApellido').value;
-  datos.cod=document.getElementById('txtCod').value;
   
-  const request = await fetch('/trabajador/registrar', {
+  const request = await fetch('/trabajador/registrar?cod='+localStorage.id, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

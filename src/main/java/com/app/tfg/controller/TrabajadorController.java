@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.tfg.controller.data_table.DataTableObjectCliente;
@@ -55,9 +56,10 @@ public class TrabajadorController {
         
     }
 	
-	public void registrar(Integer idtrabajador)
+	@PostMapping("/trabajador/registrar")
+	public void registrar(Integer idTrabajador)
 	{
-		clienteRepository.save(null);
+		clienteRepository.saveAll(idTrabajador);
 	}
 	
 	private Collection<Cliente> mapperCliente(Collection<ClienteEntity> source){
