@@ -3,6 +3,7 @@ package com.app.tfg.entity;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class TrabajadorEntity implements Serializable {
 	@Column(name ="apellido")
 	private String apellido;
 	
-	@OneToMany(mappedBy = "trabajador")
+	@OneToMany(mappedBy = "trabajador",cascade=CascadeType.ALL)
 	private Collection<ClienteEntity> clienteCollection;
 
 	public Integer getCodigo() {

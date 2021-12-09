@@ -57,9 +57,21 @@ public class TrabajadorController {
     }
 	
 	@PostMapping("/trabajador/registrar")
-	public void registrar(Integer idTrabajador)
+	public void registrar(Integer codigo, ClienteEntity cliente)
 	{
-		clienteRepository.saveAll(idTrabajador);
+		System.out.println(cliente.toString());
+		System.out.println(codigo);
+		TrabajadorEntity result = trabajadorRepository.findById(codigo).stream().findFirst().orElse(null);
+		//cliente.setTrabajador(result);
+		
+		if(Objects.nonNull(result)) {
+			result.getClienteCollection().add(cliente);
+			trabajadorRepository.save(result);
+			
+		}
+		System.out.println(cliente.toString());
+		
+		
 	}
 	
 	private Collection<Cliente> mapperCliente(Collection<ClienteEntity> source){

@@ -3,6 +3,7 @@ package com.app.tfg.entity;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class ClienteEntity implements Serializable {
 	private String apellidos;
 	
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente",cascade=CascadeType.ALL)
 	private Collection<ServicioEntity> servicioCollection;
 	
 	@ManyToOne//(fetch= FetchType.LAZY)

@@ -8,7 +8,7 @@ async function Registrar() {
   datos.nombre=document.getElementById('txtNombre').value;
   datos.apellido=document.getElementById('txtApellido').value;
   
-  const request = await fetch('/trabajador/registrar?cod='+localStorage.id, {
+  const request = await fetch('/trabajador/registrar?cod='+localStorage.cod, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
