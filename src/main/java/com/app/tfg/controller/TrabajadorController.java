@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.tfg.controller.data_table.DataTableObjectCliente;
@@ -56,24 +57,33 @@ public class TrabajadorController {
         
     }
 	
-	@PostMapping("/trabajador/registrar")
-	public void registrar(Integer codigo, ClienteEntity cliente)
+	@PostMapping("/trabajador/{codigo}/registrar")
+	public void registrar(@PathVariable Integer codigo, @RequestBody Cliente cliente)
 	{
 		System.out.println(cliente.toString());
 		System.out.println(codigo);
-		TrabajadorEntity result = trabajadorRepository.findById(codigo).stream().findFirst().orElse(null);
+		TrabajadorEntity trabajadorEntity = trabajadorRepository.findById(codigo).stream().findFirst().orElse(null);
 		//cliente.setTrabajador(result);
 		
-		if(Objects.nonNull(result)) {
-			result.getClienteCollection().add(cliente);
-			trabajadorRepository.save(result);
+		if(Objects.nonNull(trabajadorEntity)) {
+			trabajadorEntity.getClienteCollection().add(mapperClienteEntity(cliente,trabajadorEntity));
+			trabajadorRepository.save(trabajadorEntity);
 			
 		}
-		System.out.println(cliente.toString());
-		
 		
 	}
 	
+	private ClienteEntity mapperClienteEntity(Cliente cliente, TrabajadorEntity trabajadorEntity) {
+		ClienteEntity clienteEntity=new ClienteEntity();
+		clienteEntity.setNombre(cliente.getNombre());
+		clienteEntity.setApellidos(cliente.getApellidos());
+		clienteEntity.setDni(cliente.getDni());
+		clienteEntity.setTrabajador(trabajadorEntity);
+		
+		return clienteEntity;
+	}
+
+
 	private Collection<Cliente> mapperCliente(Collection<ClienteEntity> source){
 		
 		Collection<Cliente> result = new ArrayList<>();

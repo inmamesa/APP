@@ -1,5 +1,9 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {	
+	alert("no puede entrar es privada"+localStorage.codigo);
+	if(localStorage.codigo==""){
+		window.location.href='login.html'
+	}
 	
   var table=$('#dataTableTrabajador').DataTable( {
         "ajax": "/trabajador?codigo="+localStorage.codigo,
@@ -31,6 +35,12 @@ $(document).ready(function() {
     	});
     	table.row('.selected').remove().draw( false ); 
     });
+    $('#boton').click( function () {
+	    alert(localStorage.codigo);
+ 		localStorage.codigo==0;
+		window.location.href='login.html'
+	});
+     	
     
 });
 
