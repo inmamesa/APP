@@ -1,6 +1,6 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {	
-	if(localStorage.codigo==""){
+	if(!localStorage.codigo){
 		window.location.href='login.html'
 	}
 	
@@ -11,6 +11,11 @@ $(document).ready(function() {
             { "data": "tipoServicio" }
         ]
     } );
+     $('#boton').click( function () {
+	    alert(localStorage.codigo);
+ 		localStorage.codigo= null;
+		window.location.href='login.html'
+	});
 });
 
 

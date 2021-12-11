@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -72,11 +74,40 @@ public class TrabajadorController {
 		}
 		
 	}
+	@PutMapping("/trabajador/{codigo}/cliente/{idCliente}/modificar")
+	public void modificar(@PathVariable Integer codigo,@PathVariable Integer idCliente, @RequestBody Cliente cliente)
+	{
+		System.out.println(cliente.toString());
+		System.out.println(codigo);
+		TrabajadorEntity trabajadorEntity = trabajadorRepository.findById(codigo).orElse(null);
+		
+		for (ClienteEntity clienteEntity: trabajadorEntity.getClienteCollection()) {
+			if(clienteEntity.getId() == idCliente)
+			{
+				clienteEntity.setNombre(cliente.getNombre());
+				clienteEntity.setApellidos(cliente.getApellidos());
+				clienteEntity.setDni(cliente.getDni());
+				clienteEntity.setTrabajador(trabajadorEntity);
+			   
+			}
+		}
+		trabajadorRepository.save(trabajadorEntity);
+	}
+	
+	@GetMapping(value="/trabajador/cliente")
+	public ClienteEntity findCliente(Integer idCliente){
+		
+		ClienteEntity result = clienteRepository.findById(idCliente).stream().findFirst().orElse(null);		
+		
+		return result;
+	}
+		
 	
 	private ClienteEntity mapperClienteEntity(Cliente cliente, TrabajadorEntity trabajadorEntity) {
 		ClienteEntity clienteEntity=new ClienteEntity();
 		clienteEntity.setNombre(cliente.getNombre());
 		clienteEntity.setApellidos(cliente.getApellidos());
+		System.out.println(cliente.getApellidos());
 		clienteEntity.setDni(cliente.getDni());
 		clienteEntity.setTrabajador(trabajadorEntity);
 		

@@ -1,7 +1,7 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {	
-	alert("no puede entrar es privada"+localStorage.codigo);
-	if(localStorage.codigo==""){
+	//alert("no puede entrar es privada"+localStorage.codigo);
+	if(!localStorage.codigo){
 		window.location.href='login.html'
 	}
 	
@@ -35,14 +35,21 @@ $(document).ready(function() {
     	});
     	table.row('.selected').remove().draw( false ); 
     });
+    
+    $('#button3').click( function () {
+ 
+ 		localStorage.idCliente=rowSelected.cells[0].innerText;
+ 		table.row('.selected').remove().draw( false );
+    	window.location.href='modificar.html'
+    
+    });
+    
     $('#boton').click( function () {
 	    alert(localStorage.codigo);
- 		localStorage.codigo==0;
+ 		localStorage.codigo= null;
 		window.location.href='login.html'
 	});
      	
     
+
 });
-
-
-
