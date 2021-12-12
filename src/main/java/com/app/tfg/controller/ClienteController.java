@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.tfg.controller.data_table.DataTableObjectServicio;
-import com.app.tfg.dominio.Cliente;
 import com.app.tfg.dominio.Servicio;
 import com.app.tfg.entity.ClienteEntity;
 import com.app.tfg.entity.ServicioEntity;
-import com.app.tfg.entity.TrabajadorEntity;
 import com.app.tfg.repositories.ClienteRepository;
-import com.app.tfg.repositories.ServicioRepository;
+
 
 @RestController
 public class ClienteController {
 	
-	@Autowired
-	private ServicioRepository servicioRepository;
+	//@Autowired
+	//private ServicioRepository servicioRepository;
 	
 	@Autowired
 	private ClienteRepository clienteRepository;

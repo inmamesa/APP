@@ -4,12 +4,12 @@ $(document).ready(function() {
 	}
 	alert(localStorage.codigo+"con"+localStorage.idCliente);
     $.ajax({
-     		url : '/trabajador/cliente'+localStorage.idCliente
-     		});
+     		url : '/trabajador/cliente'+localStorage.idCliente,
      		data:{
-				dni=data.dni,
-     		   nombre=data.nombre,
-     		   apellidos=data.apellidos}
+				dni:txtDni,
+     		   nombre:txtNombre,
+     		   apellios:txtApellido}
+     		   });
 });
 async function modificar() {
   

@@ -44,8 +44,9 @@ $(document).ready(function() {
     
     });
     
+    //cerrar sesion
     $('#boton').click( function () {
-	    alert(localStorage.codigo);
+	    //alert(localStorage.codigo);
  		localStorage.codigo= null;
 		window.location.href='login.html'
 	});
