@@ -1,10 +1,11 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {	
-	//alert("no puede entrar es privada"+localStorage.codigo);
-	if(!localStorage.codigo){
+	//alert(localStorage.codigo);
+	//bucle para cuando no esta registrado no entre y te mande al login
+	if(!localStorage.codigo || localStorage.codigo=='null'){
 		window.location.href='login.html'
 	}
-	
+	//coger los campos de la tabla
   var table=$('#dataTableTrabajador').DataTable( {
         "ajax": "/trabajador?codigo="+localStorage.codigo,
         "columns": [
@@ -15,7 +16,7 @@ $(document).ready(function() {
         ]
     } );
     
-    //document.querySelectorAll("#dataTableTrabajador");
+    //para coger el cliente seleccionado
     var rowSelected;
     $('#dataTableTrabajador tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
@@ -26,7 +27,7 @@ $(document).ready(function() {
             rowSelected = this;     
         }
     } );
-    
+    //boton para el borrar cliente una vez que esta seleccionado en la tabla
     $('#button').click( function () {
  
      	$.ajax({
@@ -35,7 +36,7 @@ $(document).ready(function() {
     	});
     	table.row('.selected').remove().draw( false ); 
     });
-    
+    //boton para que nos coja el cliente seleccionado para el modificar y nos lleve al formulario 
     $('#button3').click( function () {
  
  		localStorage.idCliente=rowSelected.cells[0].innerText;

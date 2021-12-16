@@ -21,7 +21,7 @@ public class AuthController {
 	@Autowired
 	private TrabajadorRepository trabajadorRepository;
 	
-
+//metodo para login comprueba que existe el cliente que esta logueandose
 	@PostMapping("/login/cliente")
 	public String login(@RequestBody ClienteEntity cliente){
 		
@@ -35,7 +35,7 @@ public class AuthController {
 		
 		return "KO";
 	}
-	
+	//metodo para login del trabajador comprobando que existe ese trabajado en la base de datos
 	@PostMapping("/login/trabajador")
 	public String logintra(@RequestBody TrabajadorEntity trabajador){
 		

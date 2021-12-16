@@ -1,22 +1,23 @@
 $(document).ready(function() {	
-	if(!localStorage.codigo){
+	if(!localStorage.codigo || localStorage.codigo=='null'){
 		window.location.href='login.html'
 	}
-	alert(localStorage.codigo+"con"+localStorage.idCliente);
+	//alert(localStorage.codigo+"con"+localStorage.idCliente);
     $.ajax({
-     		url : '/trabajador/cliente'+localStorage.idCliente,
-     		data:{
-				dni:txtDni,
-     		   nombre:txtNombre,
-     		   apellios:txtApellido}
-     		   });
+     		url : '/trabajador/cliente/'+localStorage.idCliente})
+     		.done(function(msg){
+				document.getElementById('txtDni').value=msg.dni;
+				document.getElementById('txtNombre').value=msg.nombre;
+				document.getElementById('txtApellido').value=msg.apellidos;
+			});
+     		
 });
 async function modificar() {
   
   let datos={};
-  //datos.dni=document.getElementById('txtDni').value;
-  //datos.nombre=document.getElementById('txtNombre').value;
-  //datos.apellidos=document.getElementById('txtApellido').value;
+  datos.dni=document.getElementById('txtDni').value;
+  datos.nombre=document.getElementById('txtNombre').value;
+  datos.apellidos=document.getElementById('txtApellido').value;
 
   
   const request = await fetch('/trabajador/'+localStorage.codigo+'/cliente/'+localStorage.idCliente+'/modificar', {

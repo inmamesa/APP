@@ -27,6 +27,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
+	//metodo para mostrar los servicios que tiene el cliente logueado
 	@GetMapping(value="/cliente", produces = MediaType.APPLICATION_JSON_VALUE)
 	public DataTableObjectServicio findCliente(Integer id){
 		
@@ -44,6 +45,7 @@ public class ClienteController {
 		
 		
 	}
+	//mapeo ya que con la clase entity tenemos que mapear las clases del paquete dominio para poder mostrarlo
     private Collection<Servicio> mapperServicio(Collection<ServicioEntity> source){
 		
 		Collection<Servicio> result = new ArrayList<>();

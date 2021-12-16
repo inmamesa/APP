@@ -32,10 +32,12 @@ public class TrabajadorController {
 	private ClienteRepository clienteRepository;
 	
 
+	//metodo para devolver los clientes que tiene el trabajador logueado. mappeando el cliente entity con el de dominio para poder mostrarlo en la tabla
 	@GetMapping(value="/trabajador", produces = MediaType.APPLICATION_JSON_VALUE)
 	public DataTableObjectCliente findTrabajador(Integer codigo){
 		
 		System.out.println("TrabajadorController.codigo: "+codigo);
+		//para no coger nulos cuando este comprobando el codigo del trabajador para mostrar los clientes que tiene dicho trabajador
 		TrabajadorEntity result = trabajadorRepository.findById(codigo).stream().findFirst().orElse(null);		
 		
 		DataTableObjectCliente dto= new DataTableObjectCliente();
@@ -49,7 +51,7 @@ public class TrabajadorController {
 		return dto;
 	}
 	
-	
+	//metodo para eleiminar el cliente seleccionado en la tabla que lo hacemos en el js
 	@DeleteMapping("/trabajador/eliminar")
     public void eliminar(Integer idCliente) {
 		
@@ -58,6 +60,7 @@ public class TrabajadorController {
         
     }
 	
+	//metodo para registrar el cliente
 	@PostMapping("/trabajador/{codigo}/registrar")
 	public void registrar(@PathVariable Integer codigo, @RequestBody Cliente cliente)
 	{
@@ -73,6 +76,7 @@ public class TrabajadorController {
 		}
 		
 	}
+	//metodo para modificar un cliente seleccionado y despues guardar los cambios
 	@PutMapping("/trabajador/{codigo}/cliente/{idCliente}/modificar")
 	public void modificar(@PathVariable Integer codigo,@PathVariable Integer idCliente, @RequestBody Cliente cliente)
 	{
@@ -93,15 +97,21 @@ public class TrabajadorController {
 		trabajadorRepository.save(trabajadorEntity);
 	}
 	
-	@GetMapping(value="/trabajador/cliente")
-	public ClienteEntity findCliente(Integer idCliente){
+	//metodo para devolver el cliente seleccionado para el modificar
+	@GetMapping(value="/trabajador/cliente/{idCliente}")
+	public Cliente findCliente(@PathVariable Integer idCliente){
 		
-		ClienteEntity result = clienteRepository.findById(idCliente).stream().findFirst().orElse(null);		
+		ClienteEntity clienteEntity = clienteRepository.findById(idCliente).stream().findFirst().orElse(null);		
 		
-		return result;
+		if(Objects.nonNull(clienteEntity)) {
+			return new Cliente(clienteEntity.getId(),clienteEntity.getDni(),clienteEntity.getNombre(),clienteEntity.getApellidos());
+		}
+		
+		
+		return null;
 	}
 		
-	
+	//mappeo de todos los datos del cliente para poder mostrarlo en la tabla
 	private ClienteEntity mapperClienteEntity(Cliente cliente, TrabajadorEntity trabajadorEntity) {
 		ClienteEntity clienteEntity=new ClienteEntity();
 		clienteEntity.setNombre(cliente.getNombre());

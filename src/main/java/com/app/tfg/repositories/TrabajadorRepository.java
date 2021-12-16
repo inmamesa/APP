@@ -6,6 +6,7 @@ import com.app.tfg.entity.TrabajadorEntity;
 
 public interface TrabajadorRepository extends JpaRepository<TrabajadorEntity, Integer>{
 
+	//metodo para el loguin de trabajador
 	TrabajadorEntity findByNombreAndDni(String nombre, String dni);
 	
 }
